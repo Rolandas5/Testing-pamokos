@@ -4,7 +4,9 @@ const {
   cloneObject,
   zodziai,
   squareNumber,
-  squaresquareNumber,
+  squarePerimeter,
+  biggestNumber,
+  returrnNull,
 } = require('../src/utils');
 const { maistoProduktai } = require('../src/products');
 
@@ -33,7 +35,7 @@ describe('Testing utils functions', () => {
     expect(clonedObject).toEqual(originalObject);
   });
 
-  // 1. Sukurkite funkciją, kuri skaičiuoja žodžių kiekį tekste.
+  // 
   test('Tikriname ar raidziu kiekis skaiciuojamas teisingai', () => {
     expect(zodziai('Tekste')).toBe(6);
     expect(zodziai('Ar tekste butu zodziai?')).toBe(23);
@@ -46,7 +48,7 @@ describe('Testing utils functions', () => {
     );
   });
 
-  // 2. Sukurkite funkciją, kuri grąžina skaičiaus kvadratą.
+  // 
   test('Tikrianme ar skaiciaus kvadratas skaiciuojamas teisingai', () => {
     expect(squareNumber(5)).toBe(25);
     expect(squareNumber(0)).toBe(0);
@@ -55,17 +57,33 @@ describe('Testing utils functions', () => {
     );
   });
 
-  // 3. Sukurkite funkciją, kuri apskaičiuoja kvadrato perimetrą.
+  //
   test('Tikriname ar kvadrato perimetras apskaiciuojamas teisingai', () => {
-    expect(squaresquareNumber(5)).toBe(20);
-    expect(squareNumber(0)).toBe(0);
+    expect(squarePerimeter(5)).toBe(20);
+    expect(() => squarePerimeter(0)).toThrow(
+      'Kvadrato krastine negali buti minusine!'
+    );
+    expect(() => squarePerimeter(-5)).toThrow(
+      'Kvadrato krastine negali buti minusine!'
+    );
     expect(() => squareNumber('abc')).toThrow(
       'Neteisingas duomenų tipas! Reikia Number tipo!'
     );
   });
+  // 
+  test('Tikriname ar kvadrato perimetras skaiciuojamas teisingai', () => {
+    expect(biggestNumber([1, 2, 3, 4, 5])).toBe(5);
+    expect(biggestNumber([-1, -2, -3])).toBe(-1);
+    expect(() => biggestNumber('abc')).toThrow('Masyvas negali buti tuscias!');
+  });
+  //
+  test('Tikrianme ar grazina null', () => {
+    expect(returrnNull()).toBeNull();
+    expect(returrnNull(1)).toBeNull();
+    expect(returrnNull('abc')).toBeNull();
+    expect(returrnNull([])).toBeNull();
+    expect(returrnNull({ name: 'Jonas' })).toBeNull();
+  });
 });
-
-// 4. Sukurkite funkciją, kuri kaip argumentą priimtų skaičių masyvą. Funkcijos esmė grąžinti didžiausią skaičių. Parašykite keletą testų patikrinimui ar jūsų funkcija veikia tinkamai.
-// 5. Sukurkite funkciją, kuri jums visada grąžins null. Naudojantis .toBeNull() patikrinkite ar jūsų funkcija veikia tinkamai.
 
 // https://jestjs.io/
